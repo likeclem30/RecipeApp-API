@@ -1,0 +1,33 @@
+# Schema used to describe and validate the 3-field colors.csv file
+#
+#
+
+items:
+    - title:            id
+      blank:            False
+      required:         True
+      pattern:          '[0-9]+'
+      dg_type:          integer
+      dg_minimum:       1
+      dg_maximum:       999999999999999999999999999999999999999999
+    - title:            timestamp
+      blank:            False
+      minLength:        6
+      maxLength:        8
+      required:         True
+      pattern:          ([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9] #regex 00:08:31
+    - title:            temperature
+      blank:            False
+      dg_type:          float
+      dg_minimum:       0.0000001
+      dg_maximum:       100000000
+      required:         True
+    - title:            duration
+      blank:            False
+      dg_type:          string
+      minLength:        25
+      maxLength:        50
+      required:         True
+      pattern:          ((?P<hours>\d+?)h)?((?P<minutes>\d+?)m)?((?P<seconds>\d+?)s)? #regex 0 days 00:27:41.382812755
+      #pattern:          ^(?:[01][0-9]|2[0-4]):[0-5][0-9]:[0-5][0-9].[90-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
+
