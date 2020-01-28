@@ -2,10 +2,21 @@ language: python
 python:
   - "3.7"
 
+sudo: required
 services:
   - docker
 
 before_script: pip install docker-compose
 
+before_install:
+  - docker build -t likeclem30/recipeAPI .
+
 script:
   - docker-compose run app sh -c "python manage.py test && flake8"
+  - docker images likeclem30/recipeAPI
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -e="likeclem30@gmail.com" -u="likeclem30" -p="Oracle_11g";
+    docker push likeclem30/recipeAPI;
+    fi
